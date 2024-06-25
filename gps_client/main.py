@@ -18,8 +18,9 @@ response = requests.get(url)
 amigaLat = 0
 amigaLong = 0
 
-global PastRelativeEast
-global PastRelativeNorth
+global PastRelativeEast = 0
+global PastRelativeNorth = 0
+
 def latlon_to_relposned(base_lat, base_lon, target_lat, target_lon):
 
     """Convert latitude and longitude to North, East relative positions.
@@ -43,21 +44,6 @@ def calculate_base_station(amiga_lat, amiga_lon, north_from_base, east_from_base
     base_lat = geodesic(meters=-north_from_base).destination((amiga_lat, amiga_lon), bearing=0).latitude
     base_lon = geodesic(meters=-east_from_base).destination((amiga_lat, amiga_lon), bearing=90).longitude
     return base_lat, base_lon
-
-def print_relative_position_frame(msg, amigaLat, amigaLong):
-    """Prints the relative position frame message.
-
-    Args:
-        msg: The relative position frame message.
-        amigaLat: Latitude from the Amiga GPS.
-        amigaLong: Longitude from the Amiga GPS.
-    """
-    if amigaLat != 0:
-        BaseLat, BaseLong = calculate_base_station(amigaLat, amigaLong, msg.relative_pose_north, msg.relative_pose_east)
-
-        print (f"NED Of ammiga: {latlon_to_relposned(BaseLat,BaseLong,amigaLat,amigaLong)}",msg.relative_pose_north, msg.relative_pose_east)
-
-    print("-" * 50)
 
 def calculate_heading_from_relpos(north1, east1, north2, east2):
     """
@@ -124,6 +110,23 @@ def create_pose(relative_pose_north, relative_pose_east, relative_pose_up):
         }
     }
     return pose
+
+def print_relative_position_frame(msg, amigaLat, amigaLong):
+    """Prints the relative position frame message.
+
+    Args:
+        msg: The relative position frame message.
+        amigaLat: Latitude from the Amiga GPS.
+        amigaLong: Longitude from the Amiga GPS.
+    """
+
+    if amigaLat != 0:
+        BaseLat, BaseLong = calculate_base_station(amigaLat, amigaLong, msg.relative_pose_north, msg.relative_pose_east)
+        PastRelativeNorth = msg.relative_pose_north
+        PastRelativeEast = msg.relative_pose_east
+        north, east = latlon_to_relposned(BaseLat, BaseLong, amigaLat, amigaLong)
+        print("One Pose IS",create_pose(north,east,0))
+    print("-" * 50)
 
 def print_gps_frame(msg):
     """Prints the gps frame message.

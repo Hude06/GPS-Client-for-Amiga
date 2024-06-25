@@ -16,11 +16,18 @@ import json
 
 url = 'https://apps.judemakes.com/amiga/gps'
 response = requests.get(url)
+if response.status_code == 200:
+    print("Response content:", response.text)
+else:
+    print("Failed to retrieve data:", response.status_code)
+
 amigaLat = 0
 amigaLong = 0
  
 PastRelativeEast = 0
 PastRelativeNorth = 0
+
+waypoints = []
 
 def latlon_to_relposned(base_lat, base_lon, target_lat, target_lon):
 
@@ -90,10 +97,11 @@ def calculate_heading_from_relpos(north1, east1, north2, east2):
     return heading_quaternion
 
 def create_pose(relative_pose_north, relative_pose_east, relative_pose_up):
-    print("heading",calculate_heading_from_relpos(PastRelativeNorth, PastRelativeEast, relative_pose_north, relative_pose_east))
+    heading = calculate_heading_from_relpos(PastRelativeNorth, PastRelativeEast, relative_pose_north, relative_pose_east)
+    
     pose = {
         "aFromB": {
-            "heading": calculate_heading_from_relpos(PastRelativeNorth, PastRelativeEast, relative_pose_north, relative_pose_east),
+            "heading": heading,
             "translation": {
                 "x": -relative_pose_east,
                 "y": relative_pose_north
@@ -110,18 +118,12 @@ def create_pose(relative_pose_north, relative_pose_east, relative_pose_up):
             }
         }
     }
+    
     return pose
 
 def print_relative_position_frame(msg, amigaLat, amigaLong):
     global PastRelativeEast
     global PastRelativeNorth
-    """Prints the relative position frame message.
-
-    Args:
-        msg: The relative position frame message.
-        amigaLat: Latitude from the Amiga GPS.
-        amigaLong: Longitude from the Amiga GPS.
-    """
     if PastRelativeEast == 0:
         PastRelativeEast = msg.relative_pose_east
         PastRelativeNorth = msg.relative_pose_north
@@ -130,10 +132,11 @@ def print_relative_position_frame(msg, amigaLat, amigaLong):
         PastRelativeNorth = msg.relative_pose_north
         PastRelativeEast = msg.relative_pose_east
         north, east = latlon_to_relposned(BaseLat, BaseLong, amigaLat, amigaLong)
-        print("One Pose IS",create_pose(north,east,0))
-        pose_data = create_pose(north,east,0)
-        with open('coordinates.txt', 'a') as file:
-            json.dump(pose_data, file, indent=4)
+        pose1 = create_pose(north,east,0)
+        waypoints.append(pose1)
+        poses_json = {"waypoints": waypoints}
+        with open('coordinates.txt', 'w') as file:
+            json.dump(poses_json, file, indent=4)
             file.write('\n')  # Add a newline for separation
 
     print("-" * 50)
@@ -144,11 +147,11 @@ def print_gps_frame(msg):
     Args:
         msg: The gps frame message.
     """
-    print("PVT FRAME \n")
-    print(f"Message stamp: {msg.stamp.stamp}")
-    print(f"GPS time: {msg.gps_time.stamp}")
-    print(f"Latitude: {msg.latitude}")
-    print(f"Longitude: {msg.longitude}")
+    # print("PVT FRAME \n")
+    # print(f"Message stamp: {msg.stamp.stamp}")
+    # print(f"GPS time: {msg.gps_time.stamp}")
+    # print(f"Latitude: {msg.latitude}")
+    # print(f"Longitude: {msg.longitude}")
     return float(msg.latitude), float(msg.longitude)
 
 def print_ecef_frame(msg):
@@ -182,3 +185,4 @@ if __name__ == "__main__":
     args = parser.parse_args()
 
     asyncio.run(main(args.service_config))
+

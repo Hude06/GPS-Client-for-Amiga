@@ -1,0 +1,25 @@
+Metadata-Version: 2.1
+Name: farm-ng-package
+Version: 0.1.3
+Home-page: https://github.com/farm-ng/farm-ng-pysetup
+Download-URL: https://github.com/farm-ng/farm-ng-pysetup
+Author: Farm-ng Inc.
+Author-email: info@farm-ng.com
+Keywords: robotics,open-source
+Classifier: Development Status :: 4 - Beta
+Classifier: Intended Audience :: Developers
+Classifier: License :: OSI Approved :: Apache Software License
+Classifier: Operating System :: OS Independent
+Classifier: Programming Language :: Python :: 3
+Classifier: Topic :: Software Development
+Classifier: Framework :: Robot Framework
+Requires-Python: >=3.6
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: grpcio-tools
+
+# farm-ng-package
+
+[![PyPI version](https://badge.fury.io/py/farm-ng-package.svg)](https://pypi.org/project/farm-ng-package)
+
+Farm-ng setup scripts for python projects

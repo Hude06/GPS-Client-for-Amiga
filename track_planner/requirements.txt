@@ -1,0 +1,9 @@
+farm-ng-amiga
+farm-ng-core
+matplotlib
+numpy
+streamlit
+folium
+nest_asyncio
+geopy
+streamlit_folium

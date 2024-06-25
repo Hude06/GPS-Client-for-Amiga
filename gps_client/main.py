@@ -12,14 +12,15 @@ from geopy.distance import geodesic
 from geopy import Point
 import requests
 import math
+import json
 
 url = 'https://apps.judemakes.com/amiga/gps'
 response = requests.get(url)
 amigaLat = 0
 amigaLong = 0
-
-global PastRelativeEast = 0
-global PastRelativeNorth = 0
+ 
+PastRelativeEast = 0
+PastRelativeNorth = 0
 
 def latlon_to_relposned(base_lat, base_lon, target_lat, target_lon):
 
@@ -112,6 +113,8 @@ def create_pose(relative_pose_north, relative_pose_east, relative_pose_up):
     return pose
 
 def print_relative_position_frame(msg, amigaLat, amigaLong):
+    global PastRelativeEast
+    global PastRelativeNorth
     """Prints the relative position frame message.
 
     Args:
@@ -119,13 +122,20 @@ def print_relative_position_frame(msg, amigaLat, amigaLong):
         amigaLat: Latitude from the Amiga GPS.
         amigaLong: Longitude from the Amiga GPS.
     """
-
+    if PastRelativeEast == 0:
+        PastRelativeEast = msg.relative_pose_east
+        PastRelativeNorth = msg.relative_pose_north
     if amigaLat != 0:
         BaseLat, BaseLong = calculate_base_station(amigaLat, amigaLong, msg.relative_pose_north, msg.relative_pose_east)
         PastRelativeNorth = msg.relative_pose_north
         PastRelativeEast = msg.relative_pose_east
         north, east = latlon_to_relposned(BaseLat, BaseLong, amigaLat, amigaLong)
         print("One Pose IS",create_pose(north,east,0))
+        pose_data = create_pose(north,east,0)
+        with open('coordinates.txt', 'a') as file:
+            json.dump(pose_data, file, indent=4)
+            file.write('\n')  # Add a newline for separation
+
     print("-" * 50)
 
 def print_gps_frame(msg):

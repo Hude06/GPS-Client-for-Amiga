@@ -13,13 +13,19 @@ from geopy import Point
 import requests
 import math
 import json
+import subprocess
+import sys
 
 url = 'https://apps.judemakes.com/amiga/gps'
 response = requests.get(url)
-if response.status_code == 200:
-    print("Response content:", response.text)
-else:
-    print("Failed to retrieve data:", response.status_code)
+def getGPS():
+    if response.status_code == 200:
+        text = response.text
+        droneGPS = json.loads(text)
+        return(droneGPS)
+            
+    else:
+        print("Failed to retrieve data:", response.status_code)
 
 amigaLat = 0
 amigaLong = 0
@@ -28,6 +34,8 @@ PastRelativeEast = 0
 PastRelativeNorth = 0
 
 waypoints = []
+
+droneGPS = []
 
 def latlon_to_relposned(base_lat, base_lon, target_lat, target_lon):
 
@@ -54,20 +62,12 @@ def calculate_base_station(amiga_lat, amiga_lon, north_from_base, east_from_base
     return base_lat, base_lon
 
 def calculate_heading_from_relpos(north1, east1, north2, east2):
-    """
-    Calculate the heading (bearing) between two points based on relative north and east coordinates.
-
-    Parameters:
-    north1, east1 : float : Relative north and east coordinates of the first point
-    north2, east2 : float : Relative north and east coordinates of the second point
-
-    Returns:
-    dict : Dictionary containing unit quaternion components for the heading
-    """
-    
     # Calculate the difference in north and east coordinates
+    print((north1),(north2),east1,east2)
+    print(east2-east1)
     delta_north = north2 - north1
     delta_east = east2 - east1
+    print(delta_north,delta_north)
     
     # Calculate the initial bearing (angle from east direction)
     if delta_east == 0:
@@ -93,18 +93,20 @@ def calculate_heading_from_relpos(north1, east1, north2, east2):
             'real': math.cos(math.radians(compass_bearing) / 2)
         }
     }
+    print("Heading is",heading_quaternion)
     
     return heading_quaternion
 
-def create_pose(relative_pose_north, relative_pose_east, relative_pose_up):
-    heading = calculate_heading_from_relpos(PastRelativeNorth, PastRelativeEast, relative_pose_north, relative_pose_east)
+def create_pose(relative_pose_north, relative_pose_east, relative_pose_up,past1,past2):
+    print("PAST1",past1)
+    heading = calculate_heading_from_relpos(past1, past2, relative_pose_north, relative_pose_east)
     
     pose = {
         "aFromB": {
             "heading": heading,
             "translation": {
-                "x": -relative_pose_east,
-                "y": relative_pose_north
+                "x": relative_pose_north,
+                "y": relative_pose_east
             }
         },
         "frameA": "world",
@@ -129,15 +131,25 @@ def print_relative_position_frame(msg, amigaLat, amigaLong):
         PastRelativeNorth = msg.relative_pose_north
     if amigaLat != 0:
         BaseLat, BaseLong = calculate_base_station(amigaLat, amigaLong, msg.relative_pose_north, msg.relative_pose_east)
-        PastRelativeNorth = msg.relative_pose_north
-        PastRelativeEast = msg.relative_pose_east
-        north, east = latlon_to_relposned(BaseLat, BaseLong, amigaLat, amigaLong)
-        pose1 = create_pose(north,east,0)
-        waypoints.append(pose1)
-        poses_json = {"waypoints": waypoints}
-        with open('coordinates.txt', 'w') as file:
-            json.dump(poses_json, file, indent=4)
-            file.write('\n')  # Add a newline for separation
+        print(getGPS())
+        droneGPS = getGPS()
+        if droneGPS:
+            for entry in droneGPS:
+                print("Lat",entry[0])
+                latitude = entry[0]
+                longitude = entry[1]
+                north, east = latlon_to_relposned(BaseLat, BaseLong, latitude, longitude)
+                PastRelativeNorth = north
+                PastRelativeEast = east
+                pose1 = create_pose(north,east,0,PastRelativeNorth,PastRelativeEast)
+                waypoints.append(pose1)
+                poses_json = {"waypoints": waypoints}
+                print("WAYPOINTS",waypoints)
+            with open('./coordinates.json', 'w') as file:
+                json.dump(poses_json, file, indent=4)
+                file.write('\n')  # Add a newline for separation
+                sys.exit(0)  # Exit with success status (0)
+
 
     print("-" * 50)
 
@@ -175,7 +187,6 @@ async def main(service_config_path: Path) -> None:
             print_relative_position_frame(msg, amigaLat, amigaLong)
         elif isinstance(msg, gps_pb2.GpsFrame):
             amigaLat, amigaLong = print_gps_frame(msg)
-            print (print_gps_frame(msg))
         elif isinstance(msg, gps_pb2.EcefCoordinates):
             print_ecef_frame(msg)
 

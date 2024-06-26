@@ -1,0 +1,284 @@
+{
+    "waypoints": [
+        {
+            "aFromB": {
+                "heading": {
+                    "rotation": {
+                        "unitQuaternion": {
+                            "imag": {
+                                "z": 0.0
+                            },
+                            "real": 1.0
+                        }
+                    }
+                },
+                "translation": {
+                    "x": 11.906902635014438,
+                    "y": 6.899257231383091
+                }
+            },
+            "frameA": "world",
+            "frameB": "robot",
+            "tangentOfBInA": {
+                "linearVelocity": {
+                    "x": 0.0019160988792246395
+                },
+                "angularVelocity": {
+                    "z": -0.004774989732354348
+                }
+            }
+        },
+        {
+            "aFromB": {
+                "heading": {
+                    "rotation": {
+                        "unitQuaternion": {
+                            "imag": {
+                                "z": 0.0
+                            },
+                            "real": 1.0
+                        }
+                    }
+                },
+                "translation": {
+                    "x": 11.906902635014438,
+                    "y": 6.899257231383091
+                }
+            },
+            "frameA": "world",
+            "frameB": "robot",
+            "tangentOfBInA": {
+                "linearVelocity": {
+                    "x": 0.0019160988792246395
+                },
+                "angularVelocity": {
+                    "z": -0.004774989732354348
+                }
+            }
+        },
+        {
+            "aFromB": {
+                "heading": {
+                    "rotation": {
+                        "unitQuaternion": {
+                            "imag": {
+                                "z": 0.0
+                            },
+                            "real": 1.0
+                        }
+                    }
+                },
+                "translation": {
+                    "x": 11.906902635014438,
+                    "y": 6.899257231383091
+                }
+            },
+            "frameA": "world",
+            "frameB": "robot",
+            "tangentOfBInA": {
+                "linearVelocity": {
+                    "x": 0.0019160988792246395
+                },
+                "angularVelocity": {
+                    "z": -0.004774989732354348
+                }
+            }
+        },
+        {
+            "aFromB": {
+                "heading": {
+                    "rotation": {
+                        "unitQuaternion": {
+                            "imag": {
+                                "z": 0.0
+                            },
+                            "real": 1.0
+                        }
+                    }
+                },
+                "translation": {
+                    "x": 11.906902635014438,
+                    "y": 6.899257231383091
+                }
+            },
+            "frameA": "world",
+            "frameB": "robot",
+            "tangentOfBInA": {
+                "linearVelocity": {
+                    "x": 0.0019160988792246395
+                },
+                "angularVelocity": {
+                    "z": -0.004774989732354348
+                }
+            }
+        },
+        {
+            "aFromB": {
+                "heading": {
+                    "rotation": {
+                        "unitQuaternion": {
+                            "imag": {
+                                "z": 0.0
+                            },
+                            "real": 1.0
+                        }
+                    }
+                },
+                "translation": {
+                    "x": 11.906902635014438,
+                    "y": 6.899257231383091
+                }
+            },
+            "frameA": "world",
+            "frameB": "robot",
+            "tangentOfBInA": {
+                "linearVelocity": {
+                    "x": 0.0019160988792246395
+                },
+                "angularVelocity": {
+                    "z": -0.004774989732354348
+                }
+            }
+        },
+        {
+            "aFromB": {
+                "heading": {
+                    "rotation": {
+                        "unitQuaternion": {
+                            "imag": {
+                                "z": 0.0
+                            },
+                            "real": 1.0
+                        }
+                    }
+                },
+                "translation": {
+                    "x": 11.906902635014438,
+                    "y": 6.899257231383091
+                }
+            },
+            "frameA": "world",
+            "frameB": "robot",
+            "tangentOfBInA": {
+                "linearVelocity": {
+                    "x": 0.0019160988792246395
+                },
+                "angularVelocity": {
+                    "z": -0.004774989732354348
+                }
+            }
+        },
+        {
+            "aFromB": {
+                "heading": {
+                    "rotation": {
+                        "unitQuaternion": {
+                            "imag": {
+                                "z": 0.0
+                            },
+                            "real": 1.0
+                        }
+                    }
+                },
+                "translation": {
+                    "x": 11.906902635014438,
+                    "y": 6.899257231383091
+                }
+            },
+            "frameA": "world",
+            "frameB": "robot",
+            "tangentOfBInA": {
+                "linearVelocity": {
+                    "x": 0.0019160988792246395
+                },
+                "angularVelocity": {
+                    "z": -0.004774989732354348
+                }
+            }
+        },
+        {
+            "aFromB": {
+                "heading": {
+                    "rotation": {
+                        "unitQuaternion": {
+                            "imag": {
+                                "z": 0.0
+                            },
+                            "real": 1.0
+                        }
+                    }
+                },
+                "translation": {
+                    "x": 11.906902635014438,
+                    "y": 6.899257231383091
+                }
+            },
+            "frameA": "world",
+            "frameB": "robot",
+            "tangentOfBInA": {
+                "linearVelocity": {
+                    "x": 0.0019160988792246395
+                },
+                "angularVelocity": {
+                    "z": -0.004774989732354348
+                }
+            }
+        },
+        {
+            "aFromB": {
+                "heading": {
+                    "rotation": {
+                        "unitQuaternion": {
+                            "imag": {
+                                "z": 0.0
+                            },
+                            "real": 1.0
+                        }
+                    }
+                },
+                "translation": {
+                    "x": 11.906902635014438,
+                    "y": 6.899257231383091
+                }
+            },
+            "frameA": "world",
+            "frameB": "robot",
+            "tangentOfBInA": {
+                "linearVelocity": {
+                    "x": 0.0019160988792246395
+                },
+                "angularVelocity": {
+                    "z": -0.004774989732354348
+                }
+            }
+        },
+        {
+            "aFromB": {
+                "heading": {
+                    "rotation": {
+                        "unitQuaternion": {
+                            "imag": {
+                                "z": 0.0
+                            },
+                            "real": 1.0
+                        }
+                    }
+                },
+                "translation": {
+                    "x": 11.906902635014438,
+                    "y": 6.899257231383091
+                }
+            },
+            "frameA": "world",
+            "frameB": "robot",
+            "tangentOfBInA": {
+                "linearVelocity": {
+                    "x": 0.0019160988792246395
+                },
+                "angularVelocity": {
+                    "z": -0.004774989732354348
+                }
+            }
+        }
+    ]
+}

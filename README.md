@@ -40,3 +40,13 @@ return base_lat, base_lon`
 
 - Arducopter is a drone software that you can load onto you drones Flight Controller and it will let you autonomously fly your drone.
 - The drone would then fly in a grid taking pictures every second and mapping those to GPS coordinates for latter
+
+# Setup
+
+`pip install --upgrade pip`
+
+`pip install --upgrade setuptools`
+
+`pip3 install farm-ng-amiga`
+
+`pip install -r requirements.txt`

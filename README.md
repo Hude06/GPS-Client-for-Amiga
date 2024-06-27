@@ -1,6 +1,6 @@
-# Ariel Amiga
+# Ariel Aerial
 
-### What is Ariel Amiga?
+### What is Ariel Aerial?
 
 - Ariel Amiga is a Drone companion that makes using the Amiga much more enjoyable.
 
@@ -21,7 +21,7 @@ base_lon = (
     .longitude
 )
 return base_lat, base_lon`
-     This code allows me to reverse the RELPOSNED Coornets of the amgia and find out where the base station is
+     This code allows me to reverse the RELPOSNED Coordinates of the Amiga and find out where the base station is
 
 3. GPS Module and a Feather S2.
-   - I have been using a Feather S2 and a GPS module to get the Longitude and Lattiude of the Drone and then they it gets sent to my server. Then using my UI I am able to stop and start the tracking of the drone. Finally the server stores the GPS and waits for a call from the amiga. The amiga then sends out a fetch and pulls down the most recent Map or Run. The amiga then converts it to RELPOSNED using some of the functions I mentioned before and it will then format it in a way that the Auto Plot app can use.
+   - I have been using a Feather S2 and a GPS module to get the Longitude and Latitude of the Drone and then they it gets sent to my server. Then using my UI I am able to stop and start the tracking of the drone. Finally the server stores the GPS and waits for a call from the amiga. The amiga then sends out a fetch and pulls down the most recent Map or Run. The amiga then converts it to RELPOSNED using some of the functions I mentioned before and it will then format it in a way that the Auto Plot app can use.

@@ -102,6 +102,7 @@ def create_pose(
     relative_pose_north, relative_pose_east, relative_pose_up, past1, past2
 ):
     print("PAST1", past1)
+    gps_offset = 1.0
     heading = calculate_heading_from_relpos(
         past1, past2, relative_pose_north, relative_pose_east
     )
@@ -109,7 +110,10 @@ def create_pose(
     pose = {
         "aFromB": {
             "heading": heading,
-            "translation": {"x": relative_pose_north, "y": relative_pose_east},
+            "translation": {
+                "x": relative_pose_north + gps_offset,
+                "y": relative_pose_east + gps_offset,
+            },
         },
         "frameA": "world",
         "frameB": "robot",

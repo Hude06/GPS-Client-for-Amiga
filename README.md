@@ -8,7 +8,7 @@
 
 1. Getting the amiga to be able to drive from plain Lat Long and from an outside source.
    - Right now the only way to create a track for the Amiga is with the teach and repeat inside of Autoplot.
-2. Created a function that calulates the diferent and finds out where the base station is based on the GPS class using the amiga core
+2. Created a function that calculates the different and finds out where the base station is based on the GPS class using the amiga core
 
    - `    base_lat = (
     geodesic(meters=-north_from_base)

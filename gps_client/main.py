@@ -12,7 +12,6 @@ from farm_ng.core.event_client import EventClient
 from farm_ng.core.event_service_pb2 import EventServiceConfig
 from farm_ng.core.events_file_reader import proto_from_json_file
 from farm_ng.gps import gps_pb2
-from geopy import Point
 from geopy.distance import geodesic
 
 url = "https://apps.judemakes.com/amiga/gps"
@@ -41,15 +40,6 @@ droneGPS = []
 
 
 def latlon_to_relposned(base_lat, base_lon, target_lat, target_lon):
-    """Convert latitude and longitude to North, East relative positions.
-
-    Parameters:
-    - base_lat, base_lon: The latitude and longitude of the reference point (e.g., current robot position).
-    - target_lat, target_lon: The latitude and longitude of the target point.
-
-    Returns:
-    - (north, east): The North and East displacement from the reference point in meters.
-    """
     # Calculate the North displacement (in meters)
     north = geodesic((base_lat, base_lon), (target_lat, base_lon)).meters
 
@@ -199,7 +189,7 @@ async def main(service_config_path: Path) -> None:
     config: EventServiceConfig = proto_from_json_file(
         service_config_path, EventServiceConfig()
     )
-    async for event, msg in EventClient(config).subscribe(config.subscriptions[0]):
+    async for _event, msg in EventClient(config).subscribe(config.subscriptions[0]):
         if isinstance(msg, gps_pb2.RelativePositionFrame):
             print_relative_position_frame(msg, amigaLat, amigaLong)
         elif isinstance(msg, gps_pb2.GpsFrame):

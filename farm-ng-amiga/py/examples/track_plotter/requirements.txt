@@ -1,2 +1,0 @@
-farm-ng-amiga
-matplotlib

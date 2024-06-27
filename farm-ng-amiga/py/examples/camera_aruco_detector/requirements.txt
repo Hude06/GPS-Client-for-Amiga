@@ -1,3 +1,0 @@
-farm-ng-amiga
-opencv-python
-opencv-contrib-python

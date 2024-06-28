@@ -146,9 +146,9 @@ def print_relative_position_frame(msg, amigaLat, amigaLong):
                 north, east = latlon_to_relposned(
                     BaseLat, BaseLong, latitude, longitude
                 )
+                pose1 = create_pose(north, east, 0, PastRelativeNorth, PastRelativeEast)
                 PastRelativeNorth = north
                 PastRelativeEast = east
-                pose1 = create_pose(north, east, 0, PastRelativeNorth, PastRelativeEast)
                 waypoints.append(pose1)
                 poses_json = {"waypoints": waypoints}
                 print("WAYPOINTS", waypoints)
